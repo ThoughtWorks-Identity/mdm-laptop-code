@@ -1,0 +1,13 @@
+#!/bin/bash
+
+#Postinstall script to install Sophos via the command line...
+#Based on info from this KB https://community.sophos.com/kb/en-us/120570
+
+chmod a+x /tmp/sophos/Sophos\ Installer.app/Contents/MacOS/Sophos\ Installer
+chmod a+x /tmp/sophos/Sophos\ Installer.app/Contents/MacOS/tools/com.sophos.bootstrap.helper
+
+/tmp/sophos/Sophos\ Installer.app/Contents/MacOS/Sophos\ Installer --install
+
+echo "Running the Sophos installer." >> /var/tmp/depnotify.log
+
+exit 0

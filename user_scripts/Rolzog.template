@@ -1,0 +1,20 @@
+#!/bin/bash
+
+while true;	do
+	myUser=`whoami`
+	dockcheck=`ps -ef | grep [/]System/Library/CoreServices/Dock.app/Contents/MacOS/Dock`
+	echo "Waiting for file as: ${myUser}"
+	echo "regenerating dockcheck as ${dockcheck}."
+
+	if [ ! -z "${dockcheck}" ]; then
+		echo "Dockcheck is ${dockcheck}, breaking."
+		break
+	fi
+	sleep 1
+done
+SERIAL=$(system_profiler SPHardwareDataType |grep -v tray |awk '/Serial/ {print $4}')
+#/usr/bin/open "https://{{  rolzog_url  }}/rolzog/?serial=${SERIAL}"
+
+
+/bin/echo "Command: WindowStyle: Activate" >> /var/tmp/depnotify.log
+/bin/echo "Command: Website: https://{{  rolzog_url  }}/rolzog/?serial=${SERIAL}" >> /var/tmp/depnotify.log

@@ -1,0 +1,35 @@
+#!/bin/bash
+# Check to see if Sophos is already installed - for now, let's see if there's a LaunchDaemon present
+
+echo "Checking for Sophos..." >> /var/log/sophos-check.log
+echo "Status: Checking for Sophos..." >> /var/tmp/depnotify.log
+
+
+if [ -e /Library/LaunchDaemons/com.sophos.common.servicemanager.plist ]
+then
+	echo "Sophos is already installed - quitting this installer process" >> /var/log/sophos-check.log
+  echo "Status: Sophos is already installed" >> /var/tmp/depnotify.log
+#Even tidyup/remove the installer components here?
+	exit 1 #- this'll quit the installer... but I'd rather not bring it down at all...
+else
+	echo "No sign of Sophos, so continuing with installation process..." >> /var/log/sophos-check.log
+#Add a dockcheck script - so we can notify a logged in user that Sophos can take a while to install
+	while true;	do
+		myUser=`/bin/ls -l /dev/console | /usr/bin/awk '{ print $3 }'`
+		dockcheck=`ps -ef | grep [/]System/Library/CoreServices/Dock.app/Contents/MacOS/Dock`
+		echo "Waiting for file as: ${myUser}"
+		echo "regenerating dockcheck as ${dockcheck}."
+
+		if [ ! -z "${dockcheck}" ]; then
+			echo "Dockcheck is ${dockcheck}, breaking."
+			break
+		fi
+		sleep 1
+	done
+	echo "Status: Sophos not installed ... beginning installation" >> /var/tmp/depnotify.log
+	sleep 5
+	echo "Status: Sophos installation can take up to 20 minutes to complete" >> /var/tmp/depnotify.log
+	sleep 2
+fi
+
+exit 0

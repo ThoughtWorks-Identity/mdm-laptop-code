@@ -1,0 +1,102 @@
+resources:
+- repo: self
+queue:
+  name: Hosted macOS
+  demands:
+  - xcode
+  - sh
+
+#Your build pipeline references a secret variable named ‘P12password’. Create or edit the build pipeline for this YAML file, define the variable on the Variables tab, and then select the option to make it secret. See https://go.microsoft.com/fwlink/?linkid=865972
+
+steps:
+- task: UsePythonVersion@0
+  displayName: 'Use Python 3.x'
+
+- task: InstallAppleCertificate@2
+  displayName: 'Install an Apple certificate'
+  inputs:
+    certSecureFile: '70421d8e-ba21-4130-a96b-85f5ed11c188'
+    certPwd: '$(P12password)'
+
+
+- script: |
+   python -m pip install --upgrade pip
+   pip install jinja2
+   pip install awscli
+  displayName: 'Install Python prerequisites '
+
+- task: PythonScript@0
+  displayName: 'Run a Python script to render our package templates'
+  inputs:
+    scriptPath: 'render_templates.py'
+
+- script: 'git clone https://github.com/ThoughtWorks-Identity/munki-pkg.git'
+  displayName: 'Clone MunkiPkg'
+
+- script: 'git clone https://gitlab.com/squirke1977/DEPNotify.git'
+  displayName: 'Clone Steve fork of DEPNotify source'
+
+- task: Xcode@5
+  inputs:
+    xcodeVersion: '10'
+    actions: 'build'
+    xcWorkspacePath: 'DEPNotify/DEPNotify.xcodeproj'
+    sdk: 'macosx10.14'
+    Arguments: '-target DEPNotify'
+
+  displayName: 'Build an XCode project?'
+
+- script: |
+    mkdir -p munki_pkgs/DEPNotify/payload/Applications/Utilities/
+    cp -R $(Agent.BuildDirectory)/s/DEPNotify/build/Release/DEPNotify.app munki_pkgs/DEPNotify/payload/Applications/Utilities/
+    ./munki-pkg/munkipkg munki_pkgs/DEPNotify
+  displayName: 'Build a DEPNotify package'
+
+- script: './munki-pkg/munkipkg munki_pkgs/RolzogCheck'
+  displayName: 'Build Rolzog Check package'
+
+- script: |
+    curl -O https://api-cloudstation-eu-central-1.prod.hydra.sophos.com/api/download/$(tw_sophos_id)/SophosInstall.zip
+    mkdir -p munki_pkgs/Sophos/payload/tmp/sophos/
+    unzip SophosInstall.zip -d ./munki_pkgs/Sophos/payload/tmp/sophos/
+  displayName: 'Download Sophos installer components'
+
+- script: './munki-pkg/munkipkg munki_pkgs/Sophos'
+  displayName: 'Build TW Sophos installer package'
+
+- script: './munki-pkg/munkipkg munki_pkgs/Notify'
+  displayName: 'Build DEPNotify resources installer package'
+
+
+- script: |
+    pwd
+
+    mkdir -p s3sync/userland
+    mkdir -p s3sync/setupassistant
+    mv munki_pkgs/Sophos/build/*.pkg s3sync/userland
+    mv munki_pkgs/RolzogCheck/build/*.pkg s3sync/userland
+    mv munki_pkgs/DEPNotify/build/*.pkg s3sync/setupassistant
+    mv munki_pkgs/Notify/build/*.pkg s3sync/setupassistant
+    pwd
+  displayName: 'Move packages to root'
+
+- script: |
+    pwd
+    mv user_scripts/*.sh s3sync/userland
+    mv user_scripts/*.py s3sync/userland
+    pwd
+  displayName: 'Move userscripts to root'
+
+- task: AWSShellScript@1
+  displayName: 'AWS Shell Script Run AWS S3 Sync'
+  inputs:
+    awsCredentials: '$(awscreds)'
+
+    regionName: '$(aws_region)'
+
+    scriptType: inline
+
+    inlineScript: |
+
+      aws s3 sync s3sync/userland s3://$(bucket)/userland --delete
+      aws s3 sync s3sync/setupassistant s3://$(bucket)/setupassistant --delete

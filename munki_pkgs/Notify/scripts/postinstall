@@ -1,0 +1,5 @@
+#!/bin/bash
+
+#Make DEPNotify control file writeable by users
+
+/bin/chmod 666 /var/tmp/depnotify.log

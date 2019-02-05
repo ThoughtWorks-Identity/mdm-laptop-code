@@ -1,0 +1,5 @@
+*.pkgs
+.DS_Store
+munki_pkgs/Sophos/magic.sh 
+munki_pkgs/Sophos/build/*
+munki_pkgs/RolzogCheck/build/*

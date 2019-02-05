@@ -1,0 +1,4 @@
+#!/bin/bash
+#Script to load my launchdaemon
+
+/bin/launchctl load /Library/LaunchDaemons/com.thoughtworks.rolzogcheck.plist
