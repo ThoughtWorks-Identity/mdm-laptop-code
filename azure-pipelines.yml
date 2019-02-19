@@ -67,6 +67,12 @@ steps:
 - script: './munki-pkg/munkipkg munki_pkgs/Notify'
   displayName: 'Build DEPNotify resources installer package'
 
+- task: PublishPipelineArtifact@0
+  displayName: 'Publish Pipeline Artifact'
+  inputs:
+    artifactName: test
+    targetPath: 'munki_pkgs/Notify/build/'
+
 
 - script: |
     pwd
