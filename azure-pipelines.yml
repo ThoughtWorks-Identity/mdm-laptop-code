@@ -87,6 +87,14 @@ steps:
     pwd
   displayName: 'Move userscripts to root'
 
+- task: PublishPipelineArtifact@0
+  displayName: 'Publish our scripts and packages'
+  inputs:
+    artifactName: laptop_code
+    targetPath: './s3sync/'
+
+
+
 - task: AWSShellScript@1
   displayName: 'AWS Shell Script Run AWS S3 Sync'
   inputs:
