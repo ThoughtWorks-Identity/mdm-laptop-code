@@ -102,3 +102,4 @@ steps:
 
       aws s3 sync s3sync/userland s3://$(bucket)/userland --delete
       aws s3 sync s3sync/setupassistant s3://$(bucket)/setupassistant --delete
+  enabled: false
