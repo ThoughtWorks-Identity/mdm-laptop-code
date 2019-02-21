@@ -2,7 +2,7 @@ import os
 import jinja2
 
 rolzog_dev_url = os.environ.get("ROLZOG_DEV_URL")
-rozlog_prod_url = os.environ.get("ROLZOG_PROD_URL")
+rolzog_prod_url = os.environ.get("ROLZOG_PROD_URL")
 
 def templater(working_directory, template_file, values, output_file):
     templateLoader = jinja2.FileSystemLoader(searchpath=working_directory)
@@ -40,9 +40,6 @@ def main():
     os.chdir(munki_pkg_path)
     packages = next(os.walk('.'))[1]
     render_package_templates(packages)
-
-    print(rolzog_dev_url)
-    print(rolzog_prod_url)
 
     rolzog_dir = current_dir + "/user_scripts"
     render_rolzog_template(rolzog_dev_url, rolzog_dir, "Dev-Rolzog")
