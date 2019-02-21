@@ -17,7 +17,7 @@
 	<key>suppress_bundle_relocation</key>
 	<true/>
 	<key>version</key>
-	<string>{{  stage  }}-1.0</string>
+	<string>1.0</string>
 	<key>signing_info</key>
 		<dict>
 				<key>identity</key>
