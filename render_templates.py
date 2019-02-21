@@ -23,9 +23,10 @@ def render_package_templates(packages):
 
 def render_rolzog_template(rolzog_url, rolzog_dir, output_file_name):
     values = {"rolzog_url": rolzog_url}
-    working_directory = rolzog_dir
+    os.chdir(rolzog_dir)
+    working_directory = "."
     template_file = "Rolzog.template"
-    output_file = working_directory + output_file_name
+    output_file = working_directory + "/" + output_file_name + ".sh"
     templater(working_directory, template_file, values, output_file)
 
 #create a dictionary of find/replaces - feed that into your function, and add code to unpack your dictionary and feed it into your template
@@ -41,8 +42,8 @@ def main():
     render_package_templates(packages)
 
     rolzog_dir = os.chdir(current_dir + "/user_scripts")
-    render_rolzog_template(rolzog_dev_url, rolzog_dir, "Dev-Rolzog.sh")
-    render_rolzog_template(rolzog_prod_url, rolzog_dir, "Prod-Rolzog.sh")
+    render_rolzog_template(rolzog_dev_url, rolzog_dir, "Dev-Rolzog")
+    render_rolzog_template(rolzog_prod_url, rolzog_dir, "Prod-Rolzog")
 
 
 
