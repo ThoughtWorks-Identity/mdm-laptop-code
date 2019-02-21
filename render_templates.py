@@ -21,7 +21,7 @@ def render_package_templates(packages):
         output_file = working_directory + "/build-info.plist"
         templater(working_directory, template_file, values, output_file)
 
-def render_rolzog_template(rolzog_url, rolzog_dir, output_file_name)
+def render_rolzog_template(rolzog_url, rolzog_dir, output_file_name):
     values = {"rolzog_url": rolzog_url}
     working_directory = rolzog_dir
     template_file = "Rolzog.template"
@@ -39,20 +39,10 @@ def main():
     os.chdir(munki_pkg_path)
     packages = next(os.walk('.'))[1]
     render_package_templates(packages)
+
     rolzog_dir = os.chdir(current_dir + "/user_scripts")
-
-
-
     render_rolzog_template(rolzog_dev_url, rolzog_dir, "Dev-Rolzog.sh")
-
     render_rolzog_template(rolzog_prod_url, rolzog_dir, "Prod-Rolzog.sh")
-
-
-
-
-
-
-
 
 
 
