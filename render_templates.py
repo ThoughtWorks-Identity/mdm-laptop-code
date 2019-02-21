@@ -41,7 +41,7 @@ def main():
     packages = next(os.walk('.'))[1]
     render_package_templates(packages)
 
-    rolzog_dir = os.chdir(current_dir + "/user_scripts")
+    rolzog_dir = current_dir + "/user_scripts"
     render_rolzog_template(rolzog_dev_url, rolzog_dir, "Dev-Rolzog")
     render_rolzog_template(rolzog_prod_url, rolzog_dir, "Prod-Rolzog")
 
