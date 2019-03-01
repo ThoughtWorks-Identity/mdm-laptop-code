@@ -109,7 +109,7 @@ def main():
         notify(
             status="Setup/Registration Complete",
             activate=True,
-            command="Quit: All done - thanks for registering this laptop with ThoughtWorks!",
+            command="Quit: Yay! You're done!",
             tidy=True
         )
 
@@ -118,7 +118,7 @@ def main():
         notify(
             status="Setup/Registration Complete",
             activate=True,
-            command="Logout: All done - Hit Logout to reboot and start the encryption process",
+            command="Logout: Yay! You're done! - Hit Logout to reboot and start the encryption process",
             tidy=True
         )
 

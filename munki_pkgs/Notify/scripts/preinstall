@@ -5,4 +5,4 @@
 /bin/echo "Command: Image: /tmp/notebook-computer.png" >> /var/tmp/depnotify.log
 /bin/echo "Command: MainTitle: Securing your ThoughtWorks laptop!" >> /var/tmp/depnotify.log
 #/bin/echo	"Command: MainText: We're just setting up a few things to help secure and register your laptop, including ensuring you have anti-virus installed, and full disk encryption enabled. \n Comments? Come and find us in the 'MDM Q&A' room in Google Chat. \n Problems? Raise a ticket - techops-support@thoughtworks.com" >> /var/tmp/depnotify.log
-/bin/echo "Command: MainText: We are setting up your laptop with a few things: \n Sophos Anti-Virus \n Full Disk Encryption \n Laptop Registration \n This should take no more than 20 minutes." >> /var/tmp/depnotify.log
+/bin/echo "Command: MainText: We are setting up your laptop with a few things: \n \n Sophos Anti-Virus \n Full Disk Encryption \n Laptop Registration" >> /var/tmp/depnotify.log
