@@ -4,6 +4,9 @@ import jinja2
 rolzog_dev_url = os.environ.get("ROLZOG_DEV_URL")
 rolzog_prod_url = os.environ.get("ROLZOG_PROD_URL")
 
+logging_dev_url = os.eviron.get("LOGGING_DEV_URL")
+logging_prod_url = os.eviron.get("LOGGING_PROD_URL")
+
 def templater(working_directory, template_file, values, output_file):
     templateLoader = jinja2.FileSystemLoader(searchpath=working_directory)
     templateEnv = jinja2.Environment(loader=templateLoader)
@@ -21,18 +24,22 @@ def render_package_templates(packages):
         output_file = working_directory + "/build-info.plist"
         templater(working_directory, template_file, values, output_file)
 
-def render_rolzog_template(rolzog_url, rolzog_dir, output_file_name):
-    values = {"rolzog_url": rolzog_url}
-    os.chdir(rolzog_dir)
+#def render_rolzog_template(rolzog_url, rolzog_dir, output_file_name):
+#    values = {"rolzog_url": rolzog_url}
+#    os.chdir(rolzog_dir)
+#    working_directory = "."
+#    template_file = "Rolzog.template"
+#    output_file = working_directory + "/" + output_file_name + ".sh"
+#    templater(working_directory, template_file, values, output_file)
+
+def render_script_template(url, scripts_dir, input_file_name, output_file_name):
+    values = {"url": url}
+    os.chdir(scripts_dir)
     working_directory = "."
-    template_file = "Rolzog.template"
-    output_file = working_directory + "/" + output_file_name + ".sh"
+    template_file = input_file_name
+    output_file = working_directory + "/" + output_file_name
     templater(working_directory, template_file, values, output_file)
 
-#create a dictionary of find/replaces - feed that into your function, and add code to unpack your dictionary and feed it into your template
-
-# so we'd feed stage and signing id into the packages?
-# and we'd feed the URL into the Rolzog.sh file...
 
 def main():
     current_dir = os.getcwd()
@@ -41,10 +48,13 @@ def main():
     packages = next(os.walk('.'))[1]
     render_package_templates(packages)
 
-    rolzog_dir = current_dir + "/user_scripts"
-    render_rolzog_template(rolzog_dev_url, rolzog_dir, "Dev-Rolzog")
-    render_rolzog_template(rolzog_prod_url, rolzog_dir, "Prod-Rolzog")
+    scripts_dir = current_dir + "/user_scripts"
 
+    render_script_template(rolzog_dev_url, scripts_dir, "Rolzog.template" "Dev-Rolzog.sh")
+    render_script_template(rolzog_prod_url, scripts_dir, "Rolzog.template" "Prod-Rolzog.sh")
+
+    render_script_template(logging_dev_url, scripts_dir, "logging.template" "Dev-logging.py")
+    render_script_template(logging_prod_url, scripts_dir, "logging.template" "Prod-logging.py")
 
 
 if __name__ == "__main__":

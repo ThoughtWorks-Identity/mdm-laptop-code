@@ -13,8 +13,8 @@ while true;	do
 	sleep 1
 done
 SERIAL=$(system_profiler SPHardwareDataType |grep -v tray |awk '/Serial/ {print $4}')
-#/usr/bin/open "https://{{  rolzog_url  }}/rolzog/?serial=${SERIAL}"
+#/usr/bin/open "https://{{  url  }}/rolzog/?serial=${SERIAL}"
 
 
 /bin/echo "Command: WindowStyle: Activate" >> /var/tmp/depnotify.log
-/bin/echo "Command: Website: https://{{  rolzog_url  }}/rolzog/?serial=${SERIAL}" >> /var/tmp/depnotify.log
+/bin/echo "Command: Website: https://{{  url  }}/rolzog/?serial=${SERIAL}" >> /var/tmp/depnotify.log

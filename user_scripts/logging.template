@@ -1,0 +1,23 @@
+#!/usr/bin/python
+#Some basic code to send a serial number to Sumo - getting started with some basic logging.
+import subprocess
+import json
+#Define our variables - the API key, and the URL we're submitting to.
+sumoURL = '{{  url  }}''
+#Serial number function borrowed from @Frogor
+def my_serial():
+    return [x for x in [subprocess.Popen("system_profiler SPHardwareDataType |grep -v tray |awk '/Serial/ {print $4}'", shell=True, stdout=subprocess.PIPE).communicate()[0].strip()] if x]
+
+def main():
+    serial_number = my_serial()
+    #create our post data
+    postData = {'serial_number':serial_number[0]}
+    #Json-ise our post data
+    jsonPostData = json.dumps(postData)
+    #Assemble our command
+    command = ['curl','-s','-X','POST', postURL,'-H','content-type: application/json','-d', jsonPostData]
+    #submit our curl command via subprocess
+    subprocess.check_output(command)
+
+if __name__ == "__main__":
+    main()
