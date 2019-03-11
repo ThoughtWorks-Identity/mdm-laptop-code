@@ -49,11 +49,11 @@ def main():
 
     scripts_dir = current_dir + "/user_scripts"
 
-    render_script_template(rolzog_dev_url, scripts_dir, "Rolzog.template" "Dev-Rolzog.sh")
-    render_script_template(rolzog_prod_url, scripts_dir, "Rolzog.template" "Prod-Rolzog.sh")
+    render_script_template(rolzog_dev_url, scripts_dir, "Rolzog.template", "Dev-Rolzog.sh")
+    render_script_template(rolzog_prod_url, scripts_dir, "Rolzog.template", "Prod-Rolzog.sh")
 
-    render_script_template(logging_dev_url, scripts_dir, "logging.template" "Dev-logging.py")
-    render_script_template(logging_prod_url, scripts_dir, "logging.template" "Prod-logging.py")
+    render_script_template(logging_dev_url, scripts_dir, "logging.template", "Dev-logging.py")
+    render_script_template(logging_prod_url, scripts_dir, "logging.template", "Prod-logging.py")
 
 
 if __name__ == "__main__":
