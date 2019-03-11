@@ -15,7 +15,7 @@ def main():
     #Json-ise our post data
     jsonPostData = json.dumps(postData)
     #Assemble our command
-    command = ['curl','-s','-X','POST', postURL,'-H','content-type: application/json','-d', jsonPostData]
+    command = ['curl','-s','-X','POST', sumoURL,'-H','content-type: application/json','-d', jsonPostData]
     #submit our curl command via subprocess
     subprocess.check_output(command)
 
