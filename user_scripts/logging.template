@@ -3,7 +3,7 @@
 import subprocess
 import json
 #Define our variables - the API key, and the URL we're submitting to.
-sumoURL = '{{  url  }}''
+sumoURL = '{{  url  }}'
 #Serial number function borrowed from @Frogor
 def my_serial():
     return [x for x in [subprocess.Popen("system_profiler SPHardwareDataType |grep -v tray |awk '/Serial/ {print $4}'", shell=True, stdout=subprocess.PIPE).communicate()[0].strip()] if x]
