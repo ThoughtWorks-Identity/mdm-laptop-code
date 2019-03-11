@@ -4,8 +4,8 @@ import jinja2
 rolzog_dev_url = os.environ.get("ROLZOG_DEV_URL")
 rolzog_prod_url = os.environ.get("ROLZOG_PROD_URL")
 
-logging_dev_url = os.eviron.get("LOGGING_DEV_URL")
-logging_prod_url = os.eviron.get("LOGGING_PROD_URL")
+logging_dev_url = os.environ.get("LOGGING_DEV_URL")
+logging_prod_url = os.environ.get("LOGGING_PROD_URL")
 
 def templater(working_directory, template_file, values, output_file):
     templateLoader = jinja2.FileSystemLoader(searchpath=working_directory)
@@ -39,7 +39,6 @@ def render_script_template(url, scripts_dir, input_file_name, output_file_name):
     template_file = input_file_name
     output_file = working_directory + "/" + output_file_name
     templater(working_directory, template_file, values, output_file)
-
 
 def main():
     current_dir = os.getcwd()
