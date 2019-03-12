@@ -87,19 +87,3 @@ steps:
     artifactName: laptop_code
     targetPath: './s3sync/'
 
-
-
-- task: AWSShellScript@1
-  displayName: 'AWS Shell Script Run AWS S3 Sync'
-  inputs:
-    awsCredentials: '$(awscreds)'
-
-    regionName: '$(aws_region)'
-
-    scriptType: inline
-
-    inlineScript: |
-
-      aws s3 sync s3sync/userland s3://$(bucket)/userland --delete
-      aws s3 sync s3sync/setupassistant s3://$(bucket)/setupassistant --delete
-  enabled: false
