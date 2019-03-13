@@ -6,7 +6,7 @@ import time
 import shutil
 import platform
 
-sys.append.path('/tmp')
+sys.path.append('/tmp')
 import logtoSumo
 
 control_file = '/private/var/tmp/depnotify.log'

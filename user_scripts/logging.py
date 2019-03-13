@@ -4,7 +4,7 @@ import subprocess
 import json
 import sys
 
-sys.append.path('/tmp')
+sys.path.append('/tmp')
 import logtoSumo
 
 #Serial number function borrowed from @Frogor
