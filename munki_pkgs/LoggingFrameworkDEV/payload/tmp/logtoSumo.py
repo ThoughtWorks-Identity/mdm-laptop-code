@@ -9,7 +9,7 @@ import os
 def logtoSumo(serialNumber, msg):
     logger = logging.getLogger(__name__)
     logger.setLevel(logging.INFO)
-    host = {{ host }}
+    host = '{{ host }}'
     url = '{{  url  }}'
     http_handler = SumologicHandler.SumologicHandler(
         host,
@@ -23,5 +23,5 @@ def logtoSumo(serialNumber, msg):
     logger.addHandler(http_handler)
     return logger.info(msg)
 
-
-logtoSumo("C02RK1L3GTWS" ,"installation is started")
+#this is an example of how you can call this function...
+#logtoSumo("C02RK1L3GTWS" ,"installation is started")

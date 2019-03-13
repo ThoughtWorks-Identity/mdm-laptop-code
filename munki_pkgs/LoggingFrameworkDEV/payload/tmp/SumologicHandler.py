@@ -8,6 +8,7 @@ class SumologicHandler(logging.handlers.HTTPHandler):
         print(record)
         log_entry = self.format(record)
 
-        log_url = f'https://{self.host}{self.url}'
+#        log_url = f'https://{self.host}{self.url}'
+        log_url = 'https://{}{}'.format(self.host, self.url)
         command = ['curl', '-s', '-X', 'POST', log_url, '-H', 'content-type: application/json', '-d', log_entry]
         return subprocess.check_output(command)
