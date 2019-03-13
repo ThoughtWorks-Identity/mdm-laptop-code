@@ -22,21 +22,26 @@ def render_package_templates(packages):
 
 def main():
     current_dir = os.getcwd()
+
+    #Render MunkiPkg build-info templates (effectively just adding a signing ID)
     munki_pkg_path = current_dir + "/munki_pkgs"
     os.chdir(munki_pkg_path)
     packages = next(os.walk('.'))[1]
     render_package_templates(packages)
 
+    #Render Rolzog scripts for DEV and PROD
     scripts_dir = current_dir + "/user_scripts"
     rolzog_dev = {"url": os.environ.get("ROLZOG_DEV_URL")}
     rolzog_prod = {"url": os.environ.get("ROLZOG_PROD_URL")}
     templater(scripts_dir, "Rolzog.template", rolzog_dev, scripts_dir+"/"+"Dev-Rolzog.sh")
     templater(scripts_dir, "Rolzog.template", rolzog_prod, scripts_dir+"/"+"Prod-Rolzog.sh")
-    print("after")
+
+    #Render logging templates
+    working_dir = munki_pkg_path + "/LoggingFrameworkDEV/payload/tmp"
     log_dev_values = {"host": os.environ.get("LOGGING_HOST"), "logging_dev_url": os.environ.get("LOGGING_DEV_URL")}
-    log_prod_values = {"host": os.environ.get("LOGGING_HOST"), "logging_dev_url": os.environ.get("LOGGING_PROD_URL")}
-    templater(scripts_dir, "logtoSumo.template", log_dev_values, scripts_dir+"/"+"Dev-logtoSumo.py")
-    templater(scripts_dir, "logtoSumo.template", log_prod_values, scripts_dir+"/"+"Prod-logtoSumo.py")
+#    log_prod_values = {"host": os.environ.get("LOGGING_HOST"), "logging_dev_url": os.environ.get("LOGGING_PROD_URL")}
+    templater(working_dir, "logtoSumo.py", log_dev_values, working_dir+"/"+"logtoSumo.py")
+#    templater(scripts_dir, "logtoSumo.template", log_prod_values, scripts_dir+"/"+"Prod-logtoSumo.py")
 
 
 

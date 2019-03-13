@@ -10,7 +10,7 @@ def logtoSumo(serialNumber, msg):
     logger = logging.getLogger(__name__)
     logger.setLevel(logging.INFO)
     host = '{{ host }}'
-    url = '{{  url  }}'
+    url = '{{ logging_dev_url  }}'
     http_handler = SumologicHandler.SumologicHandler(
         host,
         url,

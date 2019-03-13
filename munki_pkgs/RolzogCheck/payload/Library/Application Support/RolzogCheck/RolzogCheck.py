@@ -6,6 +6,9 @@ import time
 import shutil
 import platform
 
+sys.append.path('/tmp')
+import logtoSumo
+
 control_file = '/private/var/tmp/depnotify.log'
 launchdpath = '/Library/LaunchDaemons/com.thoughtworks.rolzogcheck.plist'
 launchdidentifier = 'com.thoughtworks.rolzogcheck'
@@ -71,6 +74,11 @@ def activate_window(control_file):
     activate_command = ("Command: WindowStyle: Activate")
     depnotify(activate_command, control_file)
 
+#Serial number function borrowed from @Frogor
+def my_serial():
+    """Return Serial Number."""
+    return [x for x in [subprocess.Popen("system_profiler SPHardwareDataType |grep -v tray |awk '/Serial/ {print $4}'", shell=True, stdout=subprocess.PIPE).communicate()[0].strip()] if x]
+
 def getOSVersion():
     """Return OS version."""
     return platform.mac_ver()[0]
@@ -104,6 +112,8 @@ def notify(status="", activate=False, command="", tidy=False):
 
 def main():
 
+    serial_number = my_serial()[0]
+
     if (check_for_filevault_profile() == True and
             encryption_status() == "On"):
         notify(
@@ -112,6 +122,7 @@ def main():
             command="Quit: Yay! You're done!",
             tidy=True
         )
+        logtoSumo(serial_number, "Laptop enrollment completed - disk was already encrypted")
 
     elif (check_for_filevault_profile() == True and
             encryption_status() == "Deferred"):
@@ -121,6 +132,7 @@ def main():
             command="Logout: Yay! You're done! - Hit Logout to reboot and start the encryption process",
             tidy=True
         )
+        logtoSumo(serial_number, "Laptop enrollment completed - a reboot is required to enable encryption")
 
     else:
         status = ("Status: Registration not complete yet...")
