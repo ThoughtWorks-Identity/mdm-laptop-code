@@ -52,8 +52,8 @@ def main():
     render_script_template(rolzog_dev_url, scripts_dir, "Rolzog.template", "Dev-Rolzog.sh")
     render_script_template(rolzog_prod_url, scripts_dir, "Rolzog.template", "Prod-Rolzog.sh")
 
-    render_script_template(logging_dev_url, scripts_dir, "logging.template", "Dev-logging.py")
-    render_script_template(logging_prod_url, scripts_dir, "logging.template", "Prod-logging.py")
+    render_script_template(logging_dev_url, scripts_dir, "logtoSumo.template", "Dev-logtoSumo.py")
+    render_script_template(logging_prod_url, scripts_dir, "logtoSumo.template", "Prod-logtoSumo.py")
 
 
 if __name__ == "__main__":
