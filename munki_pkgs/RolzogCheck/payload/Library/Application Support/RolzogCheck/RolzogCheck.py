@@ -7,7 +7,7 @@ import shutil
 import platform
 
 sys.path.append('/tmp')
-import logtoSumo
+from logtoSumo import logtoSumo
 
 control_file = '/private/var/tmp/depnotify.log'
 launchdpath = '/Library/LaunchDaemons/com.thoughtworks.rolzogcheck.plist'
