@@ -117,23 +117,25 @@ def main():
 
     if (check_for_filevault_profile() == True and
             encryption_status() == "On"):
+        logtoSumo(serial_number, "Laptop enrollment completed - disk was already encrypted")
         notify(
             status="Setup/Registration Complete",
             activate=True,
             command="Quit: Yay! You're done!",
             tidy=True
         )
-        logtoSumo(serial_number, "Laptop enrollment completed - disk was already encrypted")
+
 
     elif (check_for_filevault_profile() == True and
             encryption_status() == "Deferred"):
+        logtoSumo(serial_number, "Laptop enrollment completed - a reboot is required to enable encryption")
         notify(
             status="Setup/Registration Complete",
             activate=True,
             command="Logout: Yay! You're done! - Hit Logout to reboot and start the encryption process",
             tidy=True
         )
-        logtoSumo(serial_number, "Laptop enrollment completed - a reboot is required to enable encryption")
+
 
     else:
         status = ("Status: Registration not complete yet...")
