@@ -13,7 +13,7 @@ def my_serial():
 
 def main():
     serial_number = my_serial()[0]
-    logtoSumo(serial_number, "InstallApplications is go!")
+    logtoSumo.logtoSumo(serial_number, "InstallApplications is go!")
 
 
 if __name__ == "__main__":
