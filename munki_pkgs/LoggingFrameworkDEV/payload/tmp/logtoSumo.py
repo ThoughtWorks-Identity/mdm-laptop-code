@@ -17,7 +17,7 @@ def logtoSumo(serialNumber, msg):
         method='POST'
         )
     serial_number = serialNumber
-    formatter = logging.Formatter('{\"Time\": %(asctime)s,\"name\": \"%(name)s\", \"Level\": \"%(levelname)s\", \"message\": \"%(message)s\",\"serial_number\": \"'+serial_number+'\"}', datefmt="%Y%m%d%H%M%S.000Z")
+    formatter = logging.Formatter('{\"Time\": \"%(asctime)s\",\"name\": \"%(name)s\", \"Level\": \"%(levelname)s\", \"message\": \"%(message)s\",\"serial_number\": \"'+serial_number+'\"}')
     formatter.converter = time.gmtime
     http_handler.setFormatter(formatter)
     logger.addHandler(http_handler)

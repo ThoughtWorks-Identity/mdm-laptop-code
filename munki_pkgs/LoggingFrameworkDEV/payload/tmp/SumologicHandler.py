@@ -5,7 +5,6 @@ import subprocess
 
 class SumologicHandler(logging.handlers.HTTPHandler):
     def emit(self, record):
-        print(record)
         log_entry = self.format(record)
 
 #        log_url = f'https://{self.host}{self.url}'
