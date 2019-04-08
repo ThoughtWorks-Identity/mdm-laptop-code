@@ -33,7 +33,7 @@ steps:
 - script: 'git clone https://github.com/ThoughtWorks-Identity/munki-pkg.git'
   displayName: 'Clone MunkiPkg'
 
-- script: 'git clone -b dock https://gitlab.com/squirke1977/DEPNotify.git'
+- script: 'git clone https://gitlab.com/squirke1977/DEPNotify.git'
   displayName: 'Clone Steve fork of DEPNotify source'
 
 - task: Xcode@5
