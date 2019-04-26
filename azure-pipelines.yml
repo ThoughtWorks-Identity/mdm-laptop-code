@@ -33,8 +33,8 @@ steps:
 - script: 'git clone https://github.com/ThoughtWorks-Identity/munki-pkg.git'
   displayName: 'Clone MunkiPkg'
 
-- script: 'git clone -b dock https://gitlab.com/squirke1977/DEPNotify.git'
-  displayName: 'Clone Steve fork of DEPNotify source'
+- script: 'git clone https://github.com/ThoughtWorks-Identity/DEPNotify.git'
+  displayName: 'Clone ThoughtWorks fork of DEPNotify source'
 
 - task: Xcode@5
   inputs:
@@ -69,7 +69,6 @@ steps:
 
 - script: './munki-pkg/munkipkg munki_pkgs/LoggingFrameworkDEV'
   displayName: 'Build Logging Framework DEV installer package'
-
 
 - script: |
     mkdir -p s3sync/userland
