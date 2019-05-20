@@ -48,8 +48,8 @@ def main():
         "LOGGING_HOST"), "logging_url": os.environ.get("LOGGING_PROD_URL")}
     templater(working_dir, "logtoSumo.template", log_dev_values,
               working_dir+"/"+"dev-logtoSumo.py")
-    templater(scripts_dir, "logtoSumo.template", log_prod_values,
-              scripts_dir+"/"+"prod-logtoSumo.py")
+    templater(working_dir, "logtoSumo.template", log_prod_values,
+              working_dir+"/"+"prod-logtoSumo.py")
 
 
 if __name__ == "__main__":
