@@ -52,6 +52,13 @@ steps:
     ./munki-pkg/munkipkg munki_pkgs/DEPNotify
   displayName: 'Build a DEPNotify package'
 
+- task: PublishPipelineArtifact@0
+  displayName: 'Publish DEP Notify package'
+  inputs:
+    artifactName: dep_notify_app
+    targetPath: '$(Agent.BuildDirectory)/s/DEPNotify/build/Release/DEPNotify.app'
+
+
 - script: './munki-pkg/munkipkg munki_pkgs/RolzogCheck'
   displayName: 'Build Rolzog Check package'
 
